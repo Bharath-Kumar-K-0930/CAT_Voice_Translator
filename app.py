@@ -19,7 +19,7 @@ SAMPLE_RATE = 22050
 DURATION = 4
 N_MFCC = 40
 MAX_PAD_LEN = 173
-ENERGY_THRESHOLD = 0.01  # Silence detection threshold (increased for better detection)
+ENERGY_THRESHOLD = 0.001  # Silence detection threshold (lowered for better detection)
 
 # --- FFmpeg Setup ---
 ffmpeg_path = which("ffmpeg")
@@ -53,7 +53,9 @@ def preprocess_audio(audio_file_path):
         energy = np.mean(np.abs(audio))
         if energy < ENERGY_THRESHOLD:
             print(f"⚠️ Low-energy audio detected (energy={energy:.6f})")
-            return None, "Pet audio not matched or unclear sound."
+            # return None, "Pet audio not matched or unclear sound."  <-- Commented out to allow low energy sounds
+            # Optional: continue anyway or return a specific warning
+            pass
 
         # Pad or trim audio to exact duration
         if len(audio) < DURATION * SAMPLE_RATE:
