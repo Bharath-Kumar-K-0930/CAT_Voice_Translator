@@ -1,7 +1,7 @@
 numpy
 pandas
 librosa
-tensorflow
+tensorflow-cpu
 scikit-learn
 pydub
 flask
